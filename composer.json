@@ -1,15 +1,17 @@
 {
     "name": "lindomar/php-class",
-    "minimum-stability": "dev",
     "type": "library",
     "description": "Class PHP",
     "homepage": "https://github.com/Lindomarc/php-class",
     "authors": [
         {
             "name": "Lindomar",
-            "email": "lidomarc@outlook.com"
+            "email": "lindomarc@outlook.com",
+            "homepage": "https://trivium.dev.br",
+            "role": "Developer"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.0",
         "rain/raintpl":"3.0.0"
