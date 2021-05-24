@@ -66,7 +66,7 @@ class Sql {
 		$vendorDir = dirname(dirname(__FILE__));
 		$baseDir = dirname(dirname(dirname($vendorDir)));
 		$file = $baseDir.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config_database.json';
-		echo $file;
+
 		if(file_exists($file)) {
 			$this->config = json_decode(file_put_contents($file));
 		} else {
