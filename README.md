@@ -1,6 +1,4 @@
-# Notification library via email using phpMailer
-
-This library has the function of sending e-mail using a phpmailer library. Doing this in an uncomplicated way is essential for any system.
+# Connect Mysql/mariadb database with PDO
 
 To install the library, run the following command:
 
