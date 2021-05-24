@@ -1,0 +1,25 @@
+{
+    "name": "lindomar/php-class",
+    "minimum-stability": "dev",
+    "type": "library",
+    "description": "Class PHP",
+    "homepage": "https://github.com/Lindomarc/php-class",
+    "authors": [
+        {
+            "name": "Lindomar",
+            "email": "lidomarc@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "rain/raintpl":"3.0.0"
+    },
+    "config": {
+        "vendor-dir": "lib_ext"
+    },
+    "autoload": {
+        "psr-4": {
+            "PdoConnect\\DB\\": "src"
+        }
+    }
+}
