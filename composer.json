@@ -3,6 +3,7 @@
     "type": "library",
     "description": "Connect Mysql/mariadb database with PDO",
     "homepage": "https://github.com/Lindomarc/pdo-connect",
+    "license": "MIT",
     "authors": [
         {
             "name": "Lindomar",
