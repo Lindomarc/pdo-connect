@@ -24,12 +24,13 @@ Update with your SMTP server configuration data
 
 ### Developers
 * [Lindomar] - Github
-* [phpMailer] - Lib to send E-mail
+* [RainTPL] -  an easy template engine for PHP that enables designers and developers to work better together, it loads HTML template to separate the presentation from the logic.
+
 
 License
 ----
 MIT
 
 [//]:#
-[raintpl]: <https://github.com/feulf/raintpl3>
+[RainTPL]: <https://github.com/feulf/raintpl3>
 [Lindomar]: <https://github.com/Lindomarc/pdo-connect>
