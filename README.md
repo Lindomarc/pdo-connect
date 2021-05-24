@@ -31,5 +31,5 @@ License
 MIT
 
 [//]:#
-[phpMailer]: <https://github.com/PHPMailer/PHPMailer>
+[raintpl]: <https://github.com/feulf/raintpl3>
 [Lindomar]: <https://github.com/Lindomarc/pdo-connect>
