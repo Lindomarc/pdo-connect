@@ -1,6 +1,6 @@
 <?php 
 
-namespace Lindomar\PhpClass\DB;
+namespace Lin\PhpClass;
 
 
 class Sql {
@@ -61,7 +61,7 @@ class Sql {
 		$baseDir = dirname(dirname(dirname($vendorDir)));
 		
 		$file = $baseDir.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config_database.json';
-		
+		echo $file;
 		if(file_exists($file)) {
 			
 			$this->config = json_decode(file_get_contents($file));
