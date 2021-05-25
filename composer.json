@@ -1,7 +1,7 @@
 {
-    "name": "lindomar/pdo-connect",
+    "name": "lindomar/php-class",
     "type": "library",
-    "description": "Connect Mysql/mariadb database with PDO",
+    "description": "",
     "homepage": "https://github.com/Lindomarc/pdo-connect",
     "license": "MIT",
     "authors": [
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PdoConnect\\DB\\": "src"
+            "Lindomar\\PhpClass\\": "src"
         }
     }
 }
