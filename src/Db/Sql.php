@@ -56,11 +56,7 @@ class Sql {
 	
 	private function loadConfig()
 	{
-		$vendorDir = dirname(dirname(__FILE__));
-		
-		$baseDir = dirname(dirname(dirname(dirname($vendorDir))));
-		
-		$file = $baseDir.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config_database.json';
+		$file = ROOT.'config'.DIRECTORY_SEPARATOR.'config_database.json';
 
 		if(file_exists($file)) {
 			
