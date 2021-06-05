@@ -1,85 +1,75 @@
-<?php
-	
-	namespace Lin\PhpClass\Model;
-	
-	use Lin\PhpClass\Helper\Utils;
-	
-	class Model
-	{
-		private $values = [];
-		
-		protected function beforeSave()
-		{
-			
-		}
-		
-		public function __call($name, $arguments)
-		{
-			$method = substr($name,0,3);
- 			$name =  Utils::snakeToCamel($name);
-			$fieldName = strtolower(substr($name, 3, strlen($name)));
-			
-			
-			$attribute =substr($name, strpos($name,'Attribute'),strlen($fieldName));
-			$fieldName = rtrim($fieldName,strtolower($attribute));
+<?php 
 
-			switch ($attribute){
-				case 'Attribute':
-					switch ($method)
-					{
-						case "get":
-							if (isset($this->{$fieldName})) {
-								return $this->{$fieldName};    
-							}else {
-								$this->set{$fieldName} = $arguments[0];
-							}
-							
-							break;
-						
-						case "set":
-							$this->{$fieldName} = $arguments[0];
-							break;
-					}
-				break;
-					
-				default:
-					if (in_array($fieldName, $this->fields))
-					{
-						switch ($method)
-						{
-							case "get":
-								return $this->values[$fieldName];
-								break;
-							
-							case "set":
-								$this->values = $arguments[0];
-								break;
-						}
-						
-					}
-				break;
-			}
-		}
-		
-		public function setData($data)
+namespace Lin\Model;
+
+use Lin\DB\Sql;
+
+
+class Model {
+
+	private array $values = [];
+	
+	public string $table;
+	
+	public $joins;
+	
+	public function setData($data)
+	{
+		foreach ($data as $key => $value)
 		{
-			foreach ($data as $key => $value)
-			{
-				$this->{"set".$key}($value);
-			}
+			$attribute = ucfirst($key);
+			$this->{"set".$attribute}($value);
 		}
-		
-		public function setAttributes($data)
-		{
-			foreach ($data as $key => $value)
-			{
-				$this->{"set".$key.'Attribute'}(trim($value));
-			}
-		}
-		
-		public function getValues()
-		{
-			return $this->values;
-		}
-		
 	}
+	
+	/**
+	 * @param $name
+	 * @param $args
+	 * @return mixed
+	 */
+	public function __call($name, $args)
+	{
+		$method = substr($name, 0, 3);
+		$fieldName = strtolower(substr($name, 3, strlen($name)));
+		if (in_array($fieldName, $this->fields))
+		{			
+			switch ($method)
+			{
+				case "get":
+					return $this->values[$fieldName];
+				break;
+
+				case "set":
+					$this->values[$fieldName] = $args[0];
+				break;
+			}
+		}
+		return  true;
+	}
+
+	public function getValues(): array
+	{
+		return $this->values;
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function listAll()
+	{
+		$sql = new Sql();
+		$query = "SELECT * FROM $this->table";
+		$query .= ' '.$this->getJoins(); 
+		return $sql->select($query);
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	public function getJoins()
+	{
+		return $this->joins;
+	}
+	
+	
+}
