@@ -3,7 +3,7 @@
 To install the library, run the following command:
 
 ```sh
-composer require lindomar/pdo-connect
+composer require lindomar/php-classes
 ```
 
 To use the library, simply require the composer to autoload, invoke the class and call the method:
