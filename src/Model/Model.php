@@ -15,7 +15,8 @@ class Model {
 	
 	public function setData($data)
 	{
-		foreach ($data as $key => $value)
+
+ 		foreach ($data as $key => $value)
 		{
 			$attribute = ucfirst($key);
 			$this->{"set".$attribute}($value);
@@ -31,12 +32,13 @@ class Model {
 	{
 		$method = substr($name, 0, 3);
 		$fieldName = strtolower(substr($name, 3, strlen($name)));
+
 		if (in_array($fieldName, $this->fields))
 		{			
 			switch ($method)
 			{
 				case "get":
-					return $this->values[$fieldName];
+					return (isset($this->values[$fieldName]))?$this->values[$fieldName]:NULL;
 				break;
 
 				case "set":

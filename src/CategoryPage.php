@@ -7,6 +7,7 @@
 	
 	class CategoryPage extends AdminPage
 	{
+		
  
 		public  function index()
 		{
@@ -22,42 +23,40 @@
 		public function create()
 		{
 			if ($_POST) {
-			    $user = new  User();
-				$user->setData($_POST);
-			    $user->save();
-				header('Location: /admin/users');
+ 			    $category = new  Category();
+				$category->setData($_POST);
+				$category->save();
+				
+				header('Location: /admin/categories/'.$category->getIdcategory());
 				exit;
 			}
-			$this->setTpl("users/create");
+			$this->setTpl("categories/create");
 		}
 		
-		public function edit($iduser)
-		{			    
-			$user = new  User();
-			
-			$user->get($iduser);
-			
-			if ($_POST) {
-				
-				$user->setData($_POST);
-				$user->update();
-				
-			}
-			
-			$this->setTpl("users/edit",[
-				'user' => $user->getValues()
-			]);
-		}
-		
-		public function delete($iduser)
+		public function edit($id)
 		{
-			$user = new  User();
-			$user->get((int)$iduser);
-			$user->delete();
+			$Category = new  Category();
+			$Category->get($id);
+			if ($_POST) {
+				$Category->setData($_POST);
+				$Category->save();
+				 
+			}
+			$this->setTpl("categories/update",[
+				'category' => $Category->getValues()
+			]);
 			
-			header('Location: /admin/users');
+		}
+		
+		public function delete($id)
+		{
+ 			$category = new  Category();
+			$category->get($id);
+			$category->delete();
+			header('Location: /admin/categories');
 			exit;
 		}
+		
 		
 		
 	}
