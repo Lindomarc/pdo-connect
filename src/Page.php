@@ -2,6 +2,9 @@
 	
 	namespace Lin;
 	
+
+
+	use Lin\Model\Category;
 	use Rain\Tpl;
 	
 	class Page
@@ -50,6 +53,18 @@
 					$this->tpl->assign($key, $val);
 				}
 			}
+		}
+		
+		public function category($id)
+		{
+			$Category = new  Category();
+			$Category->get($id);
+
+			
+			$this->setTpl('category', [
+				'category' => $Category->getValues(),
+				'products' => []
+			]);
 		}
 		
 		public function __destruct()

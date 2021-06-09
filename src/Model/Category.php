@@ -24,6 +24,7 @@ class Category extends Model
 	public function save()
 	{
 		
+		
 		$sql = new Sql();
 
 		$results =  $sql->select('CALL sp_categories_save(
@@ -35,6 +36,9 @@ class Category extends Model
 		]);
 		
 		$this->setData($results[0]);
+		
+		$this->updateFile();
+		
 	}
 	
 	public function get($id)
@@ -54,10 +58,24 @@ class Category extends Model
 
 		$sql->query('DELETE FROM  tb_categories WHERE idcategory = :idcategory',[
 			':idcategory' => $this->getIdcategory()
-		]);	
+		]);
+		
+		$this->updateFile();
 		
 	}
 	
 	
+	public function updateFile()
+	{
+		$categories = (new Category())->listAll();
+		
+		$html = [];
+		
+		foreach ($categories as $row){
+			array_push($html, '<li><a href="/category/'.$row['idcategory'].'">'.$row['descategory'].'</a></li>');
+		}
+		
+		file_put_contents(VIEW.'categories-menu.html',implode('',$html));
+	}
 	
 }
