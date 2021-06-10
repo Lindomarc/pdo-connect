@@ -5,6 +5,7 @@
 
 
 	use Lin\Model\Category;
+	use Lin\Model\Product;
 	use Rain\Tpl;
 	
 	class Page
@@ -70,5 +71,16 @@
 		public function __destruct()
 		{
 			if (!!$this->options['footer']) $this->tpl->draw("footer", false);
+		}
+		
+		public  function index()
+		{
+			$Product = new Product();
+			
+			$products = $Product->listAll();
+
+			$this->setTpl("index",[
+				'products' => $Product->checkList($products)
+			]);
 		}
 	}

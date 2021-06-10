@@ -25,7 +25,21 @@ class Product extends Model
 	{
 		$sql = new Sql();
 		return $sql->select('SELECT * FROM tb_products');
-	}	
+	}
+	
+	public function checkList($list)
+	{
+		foreach ($list as &$row){
+			$product = new Product();
+			$product->setData($row);
+			$product->checkPhoto();
+			$row = $product->getValues();
+			
+		}
+		
+		return $list;
+		
+	}
 	
 	public function save()
 	{

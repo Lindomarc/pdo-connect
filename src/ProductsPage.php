@@ -16,7 +16,7 @@
 		
 		public  function index()
 		{
-			$Product = new Product;
+			$Product = new Product();
 			
 			$products = $Product->listAll();
 
@@ -65,4 +65,5 @@
 			header('Location: /admin/products');
 			exit;
 		}
+		 
 	}
