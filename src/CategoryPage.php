@@ -4,6 +4,7 @@
 	namespace Lin;
 	
 	use Lin\Model\Category;
+	use Lin\Model\Product;
 	use Lin\Model\User;
 	
 	class CategoryPage extends AdminPage
@@ -63,5 +64,46 @@
 			exit;
 		}
 		
+		public function categoriesProducts($id)
+		{
+			$Category = new  Category();
+			$Category->get($id);
+
+			
+			$this->setTpl("categories/products",[
+				'category' => $Category->getValues(),
+				'productsRelated' => $Category->getProducts(),
+				'productsNotRelated' => $Category->getProducts(false)
+				
+			]);
+
+		}
 		
+		public function addProduct($idcategory,$idproduct)
+		{
+			$Category = new  Category();
+			$Category->get($idcategory);
+			
+			$Product = new  Product();
+			$Product->get($idproduct);
+			
+			$Category->addProduct($Product);
+			
+			header("Location: /admin/categories/{$idcategory}/products");
+			exit;
+		}
+		
+		public function removeProduct($idcategory,$idproduct)
+		{
+			$Category = new  Category();
+			$Category->get($idcategory);
+			
+			$Product = new  Product();
+			$Product->get($idproduct);
+			
+			$Category->removeProduct($Product);
+			
+			header("Location: /admin/categories/{$idcategory}/products");
+			exit;
+		}
 	}

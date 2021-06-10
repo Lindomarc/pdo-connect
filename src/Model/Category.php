@@ -78,4 +78,59 @@ class Category extends Model
 		file_put_contents(VIEW.'categories-menu.html',implode('',$html));
 	}
 	
+	public function getProducts($related = true): array
+	{		
+		$sql = new Sql();
+		
+		if ($related) {
+		    $included = 'IN';
+		}else{
+			$included = 'NOT IN';			
+		}
+		
+		$query = "SELECT * 
+			FROM tb_products
+			WHERE idproduct  {$included}(
+			    SELECT a.idproduct
+			    FROM tb_products a
+			        INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct
+			    WHERE b.idcategory = :idcategory 
+		);";
+		
+		$results = $sql->select($query,[
+			':idcategory' => $this->getIdcategory()
+		]);
+		
+		return $results??[];
+		
+	}
+	
+	public function addProduct(Product $product)
+	{
+		$sql = new Sql();
+		
+		$sql->select("
+			INSERT INTO tb_productscategories (idcategory, idproduct)
+			VALUES(:idcategory, :idproduct)
+			",[
+				':idcategory' => $this->getIdcategory(),
+				':idproduct' => $product->getIdproduct()
+			]
+		);
+		
+	}
+		
+	public function removeProduct(Product $product)
+	{
+		$sql = new Sql();
+		$sql->select("
+			DELETE from tb_productscategories 
+			WHERE idcategory = :idcategory 
+		  	AND idproduct = :idproduct;",[
+				':idcategory' => $this->getIdcategory(),
+				':idproduct' => $product->getIdproduct()
+			]
+		);
+	}
+	
 }
