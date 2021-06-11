@@ -58,13 +58,25 @@
 		
 		public function category($id)
 		{
+			$page = (isset($_GET['page']))?(int)$_GET['page']:1;
+
 			$Category = new  Category();
 			$Category->get($id);
-
+			
+			$pagination = $Category->getProductsPage($page);
+			$pages = [];
+			
+			for ($i=1; $i<= $pagination['pages']; $i++){
+				array_push($pages,[
+					'link' => '/category/'.$Category->getIdcategory().'?page='.$i,
+					'page' => $i
+				]);
+			}
 			
 			$this->setTpl('category', [
 				'category' => $Category->getValues(),
-				'products' => []
+				'products' => $pagination['data'],
+				'pages' => $pages
 			]);
 		}
 		
@@ -80,8 +92,9 @@
 			$products = $Product->listAll();
 
 			$this->setTpl("index",[
-				'products' => $Product->checkList($products)
+				'products' => $Product::checkList($products)
 			]);
 		}
+		
 		
 	}

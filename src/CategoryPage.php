@@ -106,4 +106,6 @@
 			header("Location: /admin/categories/{$idcategory}/products");
 			exit;
 		}
+		
+		
 	}

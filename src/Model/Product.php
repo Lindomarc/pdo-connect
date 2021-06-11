@@ -27,7 +27,7 @@ class Product extends Model
 		return $sql->select('SELECT * FROM tb_products');
 	}
 	
-	public function checkList($list)
+	public static function checkList($list)
 	{
 		foreach ($list as &$row){
 			$product = new Product();
