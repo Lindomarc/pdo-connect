@@ -90,11 +90,28 @@
 			$Product = new Product();
 			
 			$products = $Product->listAll();
-
+			
+ 			
 			$this->setTpl("index",[
-				'products' => $Product::checkList($products)
+				'products' => $products
 			]);
 		}
+		
+		public function products($desurl)
+		{
+			$Product = new Product();
+			
+			$product = $Product->getFromUrl($desurl);
+			$Product->setData($product);
+
+			$categories = $Product->getCategories();
+			
+			
+			$this->setTpl("product-detail",[
+				'product' => $product,
+				'categories' =>  $categories
+			]);
+ 		}
 		
 		
 	}

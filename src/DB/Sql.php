@@ -4,10 +4,7 @@ namespace Lin\DB;
 
 class Sql {
 
-	const HOSTNAME = "db";
-	const USERNAME = "root";
-	const PASSWORD = "";
-	const DBNAME = "db_ecommerce";
+
 
 	private $conn;
 
@@ -15,9 +12,9 @@ class Sql {
 	{
 
 		$this->conn = new \PDO(
-			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
-			Sql::USERNAME,
-			Sql::PASSWORD
+			"mysql:dbname=".DBNAME.";host=".HOSTNAME, 
+			USERNAME,
+			PASSWORD
 		);
 
 	}

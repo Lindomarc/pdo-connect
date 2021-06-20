@@ -24,7 +24,9 @@ class Product extends Model
 	public function listAll(): array
 	{
 		$sql = new Sql();
-		return $sql->select('SELECT * FROM tb_products');
+		$resuts =  $sql->select('SELECT * FROM tb_products');
+
+		return $this->checkList($resuts);
 	}
 	
 	public static function checkList($list)
@@ -159,5 +161,46 @@ class Product extends Model
 		    }
  		}
 	}
+	
+	public function getFromUrl($desUrl)
+	{
+		$query = "
+			SELECT *
+			FROM tb_products
+			WHERE desurl = :desurl
+			LIMIT 1;
+		";
+		
+		$sql = new Sql();
+		
+		$result = $sql->select($query,[
+			':desurl' => $desUrl
+		]);
+		
+		$this->setData($result);
+		$result = Product::checkList($result);
+		
+		return $result[0] ?? array();
+		
+	}
+	
+	public function getCategories()
+	{
+		$sql = new Sql();
+		$query = "
+			SELECT *
+			FROM tb_categories a
+		         INNER JOIN  tb_productscategories b
+		                     ON a.idcategory = b.idcategory
+			WHERE b.idproduct = :idproduct		
+		";
+		
+		$results =  $sql->select($query,[
+			':idproduct' => $this->getIdproduct() 
+		]);
+
+		return $results ?? array();
+	}
+	
 	
 }
